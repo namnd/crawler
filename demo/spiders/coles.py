@@ -9,6 +9,7 @@ class ColesSpider(CrawlSpider):
     name = 'coles'
     allowed_domains = ['woolworthsonline.com.au']
     start_urls = [
+<<<<<<< HEAD
         "http://www2.woolworthsonline.com.au/Shop/Browse/bakery"
     ]
     rules = [
@@ -26,4 +27,3 @@ class ColesSpider(CrawlSpider):
             item['price'] = product.xpath(""".//span[contains(@class,"price")]/text()""").extract()
             items.append(item)
         return items
-
