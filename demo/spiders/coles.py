@@ -9,7 +9,6 @@ class ColesSpider(CrawlSpider):
     name = 'coles'
     allowed_domains = ['woolworthsonline.com.au']
     start_urls = [
-<<<<<<< HEAD
         "http://www2.woolworthsonline.com.au/Shop/Browse/bakery"
     ]
     rules = [
