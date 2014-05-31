@@ -1,27 +1,29 @@
-from scrapy.spider import Spider
+from scrapy.contrib.spiders import CrawlSpider
+from scrapy.contrib.spiders import Rule
+from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.selector import Selector
+from scrapy.selector import XmlXPathSelector
 
 from demo.items import DemoItem
-
-class ColesSpider(Spider):
+class ColesSpider(CrawlSpider):
     name = 'coles'
-    allowed_domains = ['coles.com.au']
+    allowed_domains = ['woolworthsonline.com.au']
     start_urls = [
-        "http://shop.coles.com.au/online/national/specials-offers/specials-offers"
+        "http://www2.woolworthsonline.com.au/Shop/Browse/bakery"
+    ]
+    rules = [
+             Rule(SgmlLinkExtractor(restrict_xpaths=('//a[@class="_jumpTop"]')),
+                    follow=True, callback="parse_item")
     ]
 
     def parse_item(self, response):
-        sel = Selector(response)
-        products = sel.xpath('//div[@class="outer-prod prodtile"]')
+        sel = Selector(response=response)
+        products = sel.xpath("""//div[contains(@class,"product-stamp-middle")]""")
         items = []
         for product in products:
-            i = DemoItem()
-            i['name'] = product.xpath('//a[@class="product-url"]/text()').extract()
-            i['url'] = product.xpath('//a[@class="product-url"]').extract()
-            i['img'] = product.xpath('//a[@class="product-url"]/img/@src').extract()
-
-            i['price'] = product.xpath('//div[@class="price"]/text()').extract()
-            i['unit_price'] = product.xpath('//div[@class="unit-price"]/text()').extract()
-
-            items.append(i)
+            item = DemoItem()
+            item['name'] = product.xpath(""".//span[contains(@class,"description")]/text()""").extract()
+            item['price'] = product.xpath(""".//span[contains(@class,"price")]/text()""").extract()
+            items.append(item)
         return items
+
