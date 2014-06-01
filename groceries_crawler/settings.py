@@ -6,10 +6,10 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #
 
-BOT_NAME = 'demo'
+BOT_NAME = 'groceries_crawler'
 
-SPIDER_MODULES = ['demo.spiders']
-NEWSPIDER_MODULE = 'demo.spiders'
+SPIDER_MODULES = ['groceries_crawler.spiders']
+NEWSPIDER_MODULE = 'groceries_crawler.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'demo (+http://www.yourdomain.com)'

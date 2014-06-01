@@ -3,7 +3,7 @@ from scrapy.contrib.spiders import Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.selector import Selector
 
-from grocerices_crawler.items import GroceryItem
+from groceries_crawler.items import GroceryItem
 import re
 
 
