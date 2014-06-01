@@ -3,7 +3,7 @@ from scrapy.contrib.spiders import Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.selector import Selector
 
-from groceries_crawler.items import GroceriesCrawlerItem
+from grocerices_crawler.items import GroceryItem
 import re
 
 
@@ -37,7 +37,7 @@ class WoolworthSpider(CrawlSpider):
         products = sel.xpath("""//div[contains(@class,"product-stamp-middle")]""")
         items = []
         for product in products:
-            item = GroceriesCrawlerItem()
+            item = GroceryItem()
             item['name'] = product.xpath(""".//span[contains(@class,"description")]/text()""").extract()
             item['price'] = product.xpath(""".//span[contains(@class,"price")]/text()""").extract()
             items.append(item)
