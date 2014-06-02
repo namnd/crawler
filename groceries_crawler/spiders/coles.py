@@ -23,17 +23,15 @@ class ColesSpider(CrawlSpider):
                         and contains(@title,"Next page of results")]/@data-beginindex""")
         if len(data_index) > 0:
             begin_index = int(data_index[0].extract())
-            print "HELLO"
-            FormRequest.from_response(
+            return FormRequest.from_response(
                 response,
                 formdata={
                     'beginIndex': str(begin_index),
                     'pageSize': '40'
                 },
-                callback=self.parse_page
+                callback=self.process_items,
+                method="POST"
             )
-        #return items
-        return None
 
     def process_items(self, response):
         items = []
